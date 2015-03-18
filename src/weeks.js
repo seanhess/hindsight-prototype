@@ -1,10 +1,8 @@
 // @flow
-
 var Store = require('./store')
 var {weeksBack, lastWeekOfMonth, EntriesWeeks, formatDate} = Store
 var moment = require("moment")
 var Style = require('./style')
-/*
 var React = require('react')
 
 
@@ -19,8 +17,6 @@ var Weeks = React.createClass({
 
     //var weeks = groupByWeek(entries)
     var weeks = weeksBack(lastWeekOfMonth(moment()), 20)
-    console.log("WEEKS", weeks)
-    console.log("ASDF", entries)
 
     var content = weeks.reverse().map(function(date) {
       return <Week date={date} key={date}/>
@@ -102,4 +98,3 @@ var Day = React.createClass({
 })
 
 module.exports = {Week, Day, Weeks}
-*/

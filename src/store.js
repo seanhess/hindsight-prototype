@@ -1,3 +1,4 @@
+// @flow
 var {groupBy, compose, range} = require('lodash')
 var moment = require('moment')
 
