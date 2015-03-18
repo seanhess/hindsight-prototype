@@ -6,6 +6,11 @@ type Entry = {
   date: string;
 }
 
+type Moment = {
+  get(name:string):number;
+  day():number;
+}
+
 //var entry:Entry = {date: 'woot'}
 
 
@@ -72,6 +77,22 @@ function lastDayOfMonth(m:string) {
   return moment(m).endOf('month') 
 }
 
-module.exports = {Entries, EntriesWeeks, dateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth}
+function isOtherMonthLeft(date:Moment):boolean {
+  return (moment(date).subtract(1, 'day').get('month') != date.get('month'))
+}
+
+function isOtherMonthUp(date:Moment):boolean {
+  return (moment(date).subtract(7, 'day').get('month') != date.get('month'))
+}
+
+function isStartOfWeek(date:Moment):boolean {
+  return date.day() === 0
+}
+
+function isEndOfWeek(date:Moment):boolean {
+  return date.day() === 6
+}
+
+module.exports = {Entries, EntriesWeeks, dateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth, isOtherMonthLeft, isOtherMonthUp, isStartOfWeek, isEndOfWeek}
 
 
