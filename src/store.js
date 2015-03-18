@@ -1,43 +1,51 @@
-const {groupBy, compose, range} = require('lodash')
-const moment = require('moment')
+var {groupBy, compose, range} = require('lodash')
+var moment = require('moment')
+
+type Entry = {
+  date: string;
+}
+
+//var entry:Entry = {date: 'woot'}
+
 
 // ENTRIES is a global variable exported in data.json so I can avoid cross domain issues
-export const Entries = GLOBAL_ENTRY_DATA
-export const EntriesWeeks = groupedWeeks(Entries)
+declare var GLOBAL_ENTRY_DATA
+var Entries = GLOBAL_ENTRY_DATA
+var EntriesWeeks = groupedWeeks(Entries)
 
-export var dateFormat = "YYYY-MM-DD"
+var dateFormat = "YYYY-MM-DD"
 
-export function groupedWeeks(entries) {
+function groupedWeeks(entries:Array<Entry>) {
   return groupBy(entries, compose(formatDate, weekStartSunday, entryDate))
 }
 
-export function groupedDays(entries) {
+function groupedDays(entries:Array<Entry>) {
   return groupBy(entries, entryDate)
 }
 
-export function lastWeekOfMonth(date) {
+function lastWeekOfMonth(date:string) {
   return weekStartSunday(lastDayOfMonth(date))
 }
 
-export function weeksBack(start, n) {
+function weeksBack(start:string, n:number) {
   return range(0, n).map(function(x) {
     return moment(start).subtract(x * 7, 'days')
   })
 }
 
-export function weekDates(date) {
+function weekDates(date:string) {
   return range(0, 7).map(function(x) {
     return moment(date).add(x, 'days')
   })
 }
 
 // make it a moment or clone it
-function weekStartSunday(date) {
+function weekStartSunday(date:string) {
   var d = moment(date)
   return d.day(0)
 }
 
-function weekStartMonday(date) {
+function weekStartMonday(date:string) {
   var d = moment(date)
   var day = d.day()
 
@@ -50,12 +58,19 @@ function weekStartMonday(date) {
   }
 }
 
-export function formatDate(dateMoment, format = dateFormat) {
+function formatDate(dateMoment:any, format:string = dateFormat):string {
   return dateMoment.format(format)
 }
 
 
-function entryDate(e) { return e.date }
-export function lastDayOfMonth(m) { return moment(m).endOf('month') }
+function entryDate(e:Entry):string { 
+  return e.date 
+}
+
+function lastDayOfMonth(m:string) { 
+  return moment(m).endOf('month') 
+}
+
+module.exports = {Entries, EntriesWeeks, dateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth}
 
 

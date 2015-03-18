@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel generate.js > ./build/generate.js ",
-    "generate": "npm run build && node build/generate.js data/data.yml ./build/data.js"
+    "generate": "npm run build && node build/generate.js data/data.yml ./build/data.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,8 @@
     "babel-core": "4.5.1",
     "babel-loader": "4.0.0",
     "jsx-loader": "0.12.2",
-    "webpack": "1.6.0",
+    "react-hot-loader": "1.2.3",
+    "webpack": "1.7.2",
     "webpack-dev-server": "1.7.0"
   }
 }
