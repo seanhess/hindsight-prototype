@@ -24,7 +24,6 @@ var Weeks = React.createClass({
 
     var style = {
       margin: 10,
-      boxSizing: 'border-box'
     }
 
     return <div style={style}>
@@ -41,11 +40,7 @@ var Week = React.createClass({
       return <Day date={d} key={d} />
     })
 
-    var style = {
-      width: DayWidth * 7+3,
-      boxSizing: 'border-box',
-      //borderRight: 'solid 1px black'
-    }
+    var style = {}
 
     return <div style={style}>
       {content}
@@ -57,33 +52,39 @@ var Day = React.createClass({
   render():any {
     var {date} = this.props
 
-    var borderLeft = 1
-    var borderTop = 1
+    //var borderLeft = 1
+    //var borderTop = 1
 
-    if (moment(date).subtract(1, 'day').get('month') != date.get('month')) {
-      borderLeft = 3
+    var leftIsBorder = false
+    var rightIsBorder = false
+    var bottomIsBorder = false
+    var topIsBorder = false
+
+    if (isOtherMonthLeft(date) || isStartOfWeek(date)) {
+      leftIsBorder = true
     }
 
-    if (moment(date).subtract(7, 'day').get('month') != date.get('month')) {
-      // oh, lame, or I have to check if it skips years...
-      borderTop = 3
+    if (isEndOfWeek(date)) {
+      rightIsBorder = true
     }
 
     var style = {
       display: 'inline-block',
       width: DayWidth,
       height: DayWidth,
-      border: 'solid 1px black',
-      //outlineLeftWidth: borderLeft,
-      //outlineTopWidth: borderTop,
-      borderRightColor: 'transparent',
-      borderBottomColor: 'transparent',
+      border: 'solid 1px #DDDDDD',
+      borderBottomWidth: 0,
+      borderRightWidth: rightIsBorder ? 1 : 0,
+      borderLeftColor: leftIsBorder ? 'black' : '#DDD',
+      borderRightColor: rightIsBorder ? 'black' : '#DDD',
+      borderTopColor: isOtherMonthUp(date) ? 'black' : '#DDD',
+      //borderLeftWidth: borderLeft,
+      //borderTopWidth: borderTop,
       boxSizing: 'border-box',
     }
 
     // If day + 7 is a different month, then you want to change the border
     // ooooh ok!
-
 
     var format = "D"
 
@@ -98,3 +99,20 @@ var Day = React.createClass({
 })
 
 module.exports = {Week, Day, Weeks}
+
+function isOtherMonthLeft(date) {
+  return (moment(date).subtract(1, 'day').get('month') != date.get('month'))
+}
+
+function isOtherMonthUp(date) {
+  return (moment(date).subtract(7, 'day').get('month') != date.get('month'))
+}
+
+function isStartOfWeek(date) {
+  return date.day() === 0
+}
+
+function isEndOfWeek(date) {
+  return date.day() === 6
+}
+
