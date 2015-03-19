@@ -3,6 +3,7 @@
 var {weeksBack, lastWeekOfMonth, EntriesWeeks, formatDate, isOtherMonthUp, isOtherMonthLeft, isStartOfWeek, isEndOfWeek} = require('./store')
 
 var DayWidth = 120
+var CellFontSize = 12
 
 function dayCell(date:any):Object {
 
@@ -20,6 +21,7 @@ function dayCell(date:any):Object {
   }
 
   return {
+    fontSize: CellFontSize,
     display: 'table-cell',
     verticalAlign: 'bottom',
     position: 'relative',
@@ -54,12 +56,15 @@ var weeks = {
   margin: 10,
 }
 
-var CellFontSize = 12
 var dayDateLabel = {
-  fontSize: CellFontSize,
   position: 'absolute',
-  top: 4,
-  left: 6
+  top: 2,
+  left: 2,
+  textAlign: 'center',
+  color: 'black',
+  paddingLeft: 2,
+  paddingRight: 2,
+  backgroundColor: 'rgba(255,255,255,0.7)',
 }
 
 var activity = {

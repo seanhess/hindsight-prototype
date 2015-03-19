@@ -16,7 +16,7 @@ var Weeks = React.createClass({
     var {entries} = this.props
 
     // not sure what I should be doing with this
-    var weeks = weeksBack(lastWeekOfMonth(moment()), 20)
+    var weeks = weeksBack(lastWeekOfMonth(moment()), 24)
 
     var content = weeks.reverse().map(function(date) {
       return <Week date={date} key={date} entries={entriesForWeek(entries, date)}/>
