@@ -5,9 +5,9 @@ var Store = require('./store')
 var Style = require('./style')
 
 
-var Day = React.createClass({
-  render():any {
-    var {date, entries} = this.props
+class Day extends React.Component {
+  render() {
+    var {date, entries, open} = this.props
     var format = dayFormat(date)
     var image = dayImageUrl(entries)
 
@@ -19,20 +19,21 @@ var Day = React.createClass({
       return <Activity>{project}</Activity>
     })
 
-    return <div style={style} onClick={() => console.log("HI")}>
+    return <div style={style} onClick={() => open(entries)}>
       <span style={Style.dayDateLabel}>{date.format(format)}</span>
       <div>{activities}</div>
     </div>
   }
-})
+}
 
-var Activity = React.createClass({
+class Activity extends React.Component {
   render() {
     return <div style={Style.activity}>{this.props.children}</div>
   }
-})
+}
 
-module.exports = {Day}
+
+module.exports = {Day, Activity}
 
 function dayFormat(date) {
   var format = "D"
@@ -48,5 +49,5 @@ function dayImageUrl(entries):?string {
   if (!entries || !entries.length) {
     return null
   }
-  return "/data/"+entries[0].image
+  return Store.imageUrl(entries[0].image)
 }

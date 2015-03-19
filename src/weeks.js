@@ -6,30 +6,30 @@ var Style = require('./style')
 var React = require('react')
 var {Day} = require('./day')
 
-var Weeks = React.createClass({
-  render():any {
-    var {entries} = this.props
+class Weeks extends React.Component {
+  render() {
+    var {entries, open} = this.props
 
     // not sure what I should be doing with this
     var weeks = weeksBack(lastWeekOfMonth(moment()), 24)
 
     var content = weeks.reverse().map(function(date) {
-      return <Week date={date} key={date} entries={entriesForWeek(entries, date)}/>
+      return <Week date={date} key={date} entries={entriesForWeek(entries, date)} open={open}/>
     })
 
     return <div style={Style.weeks}>
       {content}
     </div>
   }
-}) 
+}
 
-var Week = React.createClass({
-  render():any {
-    var {date, entries} = this.props
+class Week extends React.Component {
+  render() {
+    var {date, entries, open} = this.props
     var dates = Store.weekDates(date)
 
     var content = dates.map(function(d) {
-      return <Day date={d} key={d} entries={entriesForDay(entries, d)}/>
+      return <Day date={d} key={d} entries={entriesForDay(entries, d)} open={open}/>
     })
 
     var style = {}
@@ -38,7 +38,7 @@ var Week = React.createClass({
       {content}
     </div>
   }
-})
+}
 
 module.exports = {Week, Weeks}
 

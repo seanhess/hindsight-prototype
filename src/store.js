@@ -110,6 +110,10 @@ function entryProject(entry:Entry):string {
   return entry.project
 }
 
-module.exports = {Entries, EntriesWeeks, DateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth, isOtherMonthLeft, isOtherMonthUp, isStartOfWeek, isEndOfWeek, entriesForWeek, entriesForDay, entryProject}
+function imageUrl(image:string):string {
+  return "/data/" + image
+}
+
+module.exports = {Entries, EntriesWeeks, DateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth, isOtherMonthLeft, isOtherMonthUp, isStartOfWeek, isEndOfWeek, entriesForWeek, entriesForDay, entryProject, imageUrl}
 
 

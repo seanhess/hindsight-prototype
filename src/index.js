@@ -3,17 +3,47 @@
 var React = window.React = require('react')
 var {Weeks} = require('./weeks')
 var {EntriesWeeks} = require('./store')
+var {Details} = require('./details')
 
-var App = React.createClass({
+class App extends React.Component {
 
-  getInitialState() {
-    return {}
-  },
+  constructor(props) {
+    super(props)
+    this.state = {details: null}
+    this.closeDetails = this.closeDetails.bind(this)
+    this.openDetails = this.openDetails.bind(this)
+  }
 
   render() {
-    return <Weeks entries={EntriesWeeks}/>
+    var content:?ReactElement;
+    if (this.state.details) {
+      content = this.renderDetails()
+    }
+
+    else {
+      content = this.renderWeeks()
+    }
+
+    return <div>{content}</div>
   }
-})
+
+  renderWeeks() {
+    return <Weeks entries={EntriesWeeks} open={this.openDetails}/>
+  }
+
+  renderDetails() {
+    return <Details entries={this.state.details} close={this.closeDetails}/>
+  }
+
+  closeDetails() {
+    this.setState({details: null})
+  }
+
+  openDetails(entries) {
+    this.setState({details: entries})
+  }
+}
+
 
 React.render(
   <App/>,
