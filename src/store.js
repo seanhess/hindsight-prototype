@@ -4,6 +4,8 @@ var moment = require('moment').utc
 
 type Entry = {
   date: string;
+  project: string;
+  image: string;
 }
 
 type Moment = {
@@ -104,6 +106,10 @@ function isEndOfWeek(date:Moment):boolean {
   return date.day() === 6
 }
 
-module.exports = {Entries, EntriesWeeks, DateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth, isOtherMonthLeft, isOtherMonthUp, isStartOfWeek, isEndOfWeek, entriesForWeek, entriesForDay}
+function entryProject(entry:Entry):string {
+  return entry.project
+}
+
+module.exports = {Entries, EntriesWeeks, DateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth, isOtherMonthLeft, isOtherMonthUp, isStartOfWeek, isEndOfWeek, entriesForWeek, entriesForDay, entryProject}
 
 

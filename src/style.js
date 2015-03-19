@@ -20,9 +20,12 @@ function dayCell(date:any):Object {
   }
 
   return {
-    display: 'inline-block',
+    display: 'table-cell',
+    verticalAlign: 'bottom',
+    position: 'relative',
     width: DayWidth,
     height: DayWidth,
+    marginBottom: -5,
     border: 'solid 1px #DDDDDD',
     borderBottomWidth: 0,
     borderRightWidth: rightIsBorder ? 1 : 0,
@@ -51,9 +54,23 @@ var weeks = {
   margin: 10,
 }
 
+var CellFontSize = 12
 var dayDateLabel = {
-  fontSize: 'smaller', 
-  paddingLeft: 4
+  fontSize: CellFontSize,
+  position: 'absolute',
+  top: 4,
+  left: 6
 }
 
-module.exports = {dayCell, DayWidth, weeks, backgroundImage, dayDateLabel}
+var activity = {
+  border: 'solid 1px #1155CC',
+  background: '#D4E3FC',
+  margin: 1,
+  padding: 0,
+  textAlign: 'center',
+  fontSize: 12
+}
+
+
+
+module.exports = {dayCell, DayWidth, weeks, backgroundImage, dayDateLabel, activity}

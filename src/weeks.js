@@ -1,6 +1,6 @@
 // @flow
 var Store = require('./store')
-var {weeksBack, lastWeekOfMonth, EntriesWeeks, formatDate, entriesForWeek, entriesForDay} = Store
+var {weeksBack, lastWeekOfMonth, EntriesWeeks, formatDate, entriesForWeek, entriesForDay, entryProject} = Store
 var moment = require("moment")
 var Style = require('./style')
 var React = require('react')
@@ -51,15 +51,24 @@ var Day = React.createClass({
     var format = dayFormat(date)
     var image = dayImageUrl(entries)
 
-    if (image) {
-      console.log("FOUND", formatDate(date), entries[0].date)
-    }
-
     var style = assign(Style.dayCell(date), Style.backgroundImage(image))
 
-    return <div style={style}>
+    var projects = entries.filter(entryProject).map(entryProject)
+
+    var activities = projects.map(function(project) {
+      return <Activity>{project}</Activity>
+    })
+
+    return <div style={style} onClick={() => console.log("HI")}>
       <span style={Style.dayDateLabel}>{date.format(format)}</span>
+      <div>{activities}</div>
     </div>
+  }
+})
+
+var Activity = React.createClass({
+  render() {
+    return <div style={Style.activity}>{this.props.children}</div>
   }
 })
 
