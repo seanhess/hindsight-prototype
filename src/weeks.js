@@ -1,9 +1,10 @@
 // @flow
 var Store = require('./store')
-var {weeksBack, lastWeekOfMonth, EntriesWeeks, formatDate} = Store
+var {weeksBack, lastWeekOfMonth, EntriesWeeks, formatDate, entriesForWeek, entriesForDay} = Store
 var moment = require("moment")
 var Style = require('./style')
 var React = require('react')
+var {assign} = require('lodash')
 
 
 // TODO: get the current month (hmm, and a sneak peek of the next month, hmm)
@@ -14,11 +15,11 @@ var Weeks = React.createClass({
   render():any {
     var {entries} = this.props
 
-    //var weeks = groupByWeek(entries)
+    // not sure what I should be doing with this
     var weeks = weeksBack(lastWeekOfMonth(moment()), 20)
 
     var content = weeks.reverse().map(function(date) {
-      return <Week date={date} key={date}/>
+      return <Week date={date} key={date} entries={entriesForWeek(entries, date)}/>
     })
 
     return <div style={Style.weeks}>
@@ -29,10 +30,11 @@ var Weeks = React.createClass({
 
 var Week = React.createClass({
   render():any {
-    var {date} = this.props
+    var {date, entries} = this.props
     var dates = Store.weekDates(date)
+
     var content = dates.map(function(d) {
-      return <Day date={d} key={d} />
+      return <Day date={d} key={d} entries={entriesForDay(entries, d)}/>
     })
 
     var style = {}
@@ -45,9 +47,10 @@ var Week = React.createClass({
 
 var Day = React.createClass({
   render():any {
-    var {date} = this.props
-    var style = Style.day(date)
+    var {date, entries} = this.props
     var format = dayFormat(date)
+    var image = dayImageUrl(entries)
+    var style = assign(Style.dayCell(date), Style.backgroundImage(image))
 
     return <div style={style}>
       <span style={{fontSize: 'smaller', paddingLeft: 4}}>{date.format(format)}</span>
@@ -65,4 +68,11 @@ function dayFormat(date) {
   }
 
   return format
+}
+
+function dayImageUrl(entries):?string {
+  if (!entries || !entries.length) {
+    return null
+  }
+  return "/data/"+entries[0].image
 }

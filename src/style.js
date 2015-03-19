@@ -4,7 +4,7 @@ var {weeksBack, lastWeekOfMonth, EntriesWeeks, formatDate, isOtherMonthUp, isOth
 
 var DayWidth = 120
 
-function day(date:any):Object {
+function dayCell(date:any):Object {
 
   var leftIsBorder = false
   var rightIsBorder = false
@@ -33,9 +33,22 @@ function day(date:any):Object {
   }
 }
 
+function backgroundImage(url:?string):Object {
+
+  var background = 'none'
+
+  if (url) {
+    background = "url('"+url+"')"
+  }
+
+  return {
+    background: background,
+    backgroundSize: 'cover'
+  }   
+}
 
 var weeks = {
   margin: 10,
 }
 
-module.exports = {day, DayWidth, weeks}
+module.exports = {dayCell, DayWidth, weeks, backgroundImage}

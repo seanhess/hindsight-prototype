@@ -15,11 +15,12 @@ type Moment = {
 
 
 // ENTRIES is a global variable exported in data.json so I can avoid cross domain issues
+var DateFormat = "YYYY-MM-DD"
+
 declare var GLOBAL_ENTRY_DATA
 var Entries = GLOBAL_ENTRY_DATA
 var EntriesWeeks = groupedWeeks(Entries)
 
-var dateFormat = "YYYY-MM-DD"
 
 function groupedWeeks(entries:Array<Entry>) {
   return groupBy(entries, compose(formatDate, weekStartSunday, entryDate))
@@ -64,10 +65,19 @@ function weekStartMonday(date:string) {
   }
 }
 
-function formatDate(dateMoment:any, format:string = dateFormat):string {
+function formatDate(dateMoment:any, format:string = DateFormat):string {
   return dateMoment.format(format)
 }
 
+function entriesForWeek(entries:any, date:Moment):Array<Entry> {
+  return entries[formatDate(date)]
+}
+
+function entriesForDay(entries:Array<Entry> = [], date:Moment):Array<Entry> {
+  return entries.filter(function(entry) {
+    return formatDate(moment(entry.date)) == formatDate(date)
+  })
+}
 
 function entryDate(e:Entry):string { 
   return e.date 
@@ -93,6 +103,6 @@ function isEndOfWeek(date:Moment):boolean {
   return date.day() === 6
 }
 
-module.exports = {Entries, EntriesWeeks, dateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth, isOtherMonthLeft, isOtherMonthUp, isStartOfWeek, isEndOfWeek}
+module.exports = {Entries, EntriesWeeks, DateFormat, groupedWeeks, groupedDays, lastWeekOfMonth, weeksBack, weekDates, weekStartSunday, weekStartMonday, formatDate, entryDate, lastDayOfMonth, isOtherMonthLeft, isOtherMonthUp, isStartOfWeek, isEndOfWeek, entriesForWeek, entriesForDay}
 
 
