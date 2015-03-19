@@ -5,6 +5,11 @@ var {Weeks} = require('./weeks')
 var {EntriesWeeks} = require('./store')
 
 var App = React.createClass({
+
+  getInitialState() {
+    return {}
+  },
+
   render() {
     return <Weeks entries={EntriesWeeks}/>
   }

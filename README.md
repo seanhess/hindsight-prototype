@@ -9,5 +9,6 @@ Hacking
 Todo
 ----
 
-Add comments to moments / images
-Display projects
+x Display projects
+see comments
+see image in more detail
