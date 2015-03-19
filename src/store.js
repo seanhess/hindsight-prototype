@@ -1,6 +1,6 @@
 // @flow
 var {groupBy, compose, range} = require('lodash')
-var moment = require('moment')
+var moment = require('moment').utc
 
 type Entry = {
   date: string;
@@ -75,6 +75,7 @@ function entriesForWeek(entries:any, date:Moment):Array<Entry> {
 
 function entriesForDay(entries:Array<Entry> = [], date:Moment):Array<Entry> {
   return entries.filter(function(entry) {
+    var entryDate = moment(entry.date)
     return formatDate(moment(entry.date)) == formatDate(date)
   })
 }

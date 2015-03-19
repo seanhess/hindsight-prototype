@@ -10,4 +10,8 @@ Todo
 ----
 
 - [ ] display image entries
-- [ ] display exercise
+- [ ] display project
+- [ ] display moment comments?
+
+Add comments to projects
+Add comments to moments / images

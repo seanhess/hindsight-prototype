@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "babel generate.js > ./build/generate.js ",
-    "generate": "npm run build && node build/generate.js data/data.yml ./build/data.js",
-    "copy-images": "cp data/*.jpg build/"
+    "generate": "npm run build && node build/generate.js data/data.yml ./build/data.js"
   },
   "repository": {
     "type": "git",

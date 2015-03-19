@@ -51,4 +51,9 @@ var weeks = {
   margin: 10,
 }
 
-module.exports = {dayCell, DayWidth, weeks, backgroundImage}
+var dayDateLabel = {
+  fontSize: 'smaller', 
+  paddingLeft: 4
+}
+
+module.exports = {dayCell, DayWidth, weeks, backgroundImage, dayDateLabel}

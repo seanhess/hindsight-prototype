@@ -50,10 +50,15 @@ var Day = React.createClass({
     var {date, entries} = this.props
     var format = dayFormat(date)
     var image = dayImageUrl(entries)
+
+    if (image) {
+      console.log("FOUND", formatDate(date), entries[0].date)
+    }
+
     var style = assign(Style.dayCell(date), Style.backgroundImage(image))
 
     return <div style={style}>
-      <span style={{fontSize: 'smaller', paddingLeft: 4}}>{date.format(format)}</span>
+      <span style={Style.dayDateLabel}>{date.format(format)}</span>
     </div>
   }
 })
